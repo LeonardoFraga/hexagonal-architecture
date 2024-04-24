@@ -4,6 +4,6 @@ namespace Domain.Repositories
 {
     public interface IUserRepository
     {
-         IList<User> GetUsers();
+         IList<Usuario> GetUsers();
     }
 }

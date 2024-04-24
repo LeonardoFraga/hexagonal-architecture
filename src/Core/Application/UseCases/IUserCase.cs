@@ -4,6 +4,6 @@ namespace Application.UseCases
 {
     public interface IUserUseCase
     {
-        IList<User> GetUsers();
+        IList<Usuario> GetUsers();
     }
 }

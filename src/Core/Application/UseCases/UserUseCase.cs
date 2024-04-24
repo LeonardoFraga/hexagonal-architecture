@@ -12,7 +12,7 @@ namespace Application.UseCases
             _userRepository = userRepository;
         }
    
-        IList<User> IUserUseCase.GetUsers()
+        IList<Usuario> IUserUseCase.GetUsers()
         {
             return _userRepository.GetUsers();
         }
