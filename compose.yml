@@ -1,0 +1,39 @@
+version: '3.4'
+networks:
+  dev:
+    driver: bridge
+services:
+  api:
+    image: docker.io/library/appdemo
+    depends_on:
+     - "hexagonal_db"
+    container_name: hexagonal-api
+    ports:
+      - "8000:8080"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      # TODO: Remove hard coded connection string
+      - ConnectionStrings__DefaultConnection=User ID =postgres;Password=1234;Server=hexagonal_db;Port=5432;Database=HexagonalDb; Integrated Security=true;Pooling=true;
+      - ASPNETCORE_URLS=http://*:8080
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - dev
+  hexagonal_db:
+    image: postgres:latest
+    container_name: hexagonal_db
+    environment:
+        # TODO: Remove hard coded password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=HexagonalDb
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    networks:
+      - dev
+volumes:
+  app_data:

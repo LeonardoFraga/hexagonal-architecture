@@ -1,22 +1,29 @@
+using Application.Mappers;
 using Application.UseCases;
 using Domain.Repositories;
 using HealthChecks.UI.Client;
+using Infra.DbContexts;
 using Infra.Repositories;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 
-builder.Services.AddHealthChecks()
-        .AddNpgSql(builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value,
+var connectionString = builder.Configuration.GetSection("DatabaseSettings:ConnectionString").Value;
+if (!string.IsNullOrEmpty(connectionString))
+{
+    builder.Services.AddHealthChecks()
+        .AddNpgSql(connectionString,
                 name: "postgresSQL", tags: new string[] { "db", "data" });
+    
+    builder.Services.AddDbContext<AppDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserUseCase, UserUseCase>();
@@ -26,11 +33,10 @@ builder.Services.AddHealthChecksUI(opt =>
     opt.SetEvaluationTimeInSeconds(15);
     opt.MaximumHistoryEntriesPerEndpoint(60);
     opt.SetApiMaxActiveRequests(1);
-    opt.AddHealthCheckEndpoint("API", "/health");
+    opt.AddHealthCheckEndpoint("API", "http://localhost:8000/health"); // TODO: Remove hard coded url
 }).AddInMemoryStorage();
 
 var app = builder.Build();
-
 
 app.UseSwagger();
 app.UseSwaggerUI();

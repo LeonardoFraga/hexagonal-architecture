@@ -1,22 +1,22 @@
 using Domain.Entities;
 using Domain.Repositories;
+using Infra.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private readonly AppDbContext _context;
 
-        // This should come from the database.
-        private static IList<Usuario> _users = new List<Usuario>
+        public UserRepository(AppDbContext context)
         {
-            new Usuario(1, "John Doe", "john.d@test.com", "12345678", new Domain.ValueObjects.CPF("12345678901"), new Domain.ValueObjects.Endereco("Rua 1", "Casa 1", "Bairro 1", "Cidade 1", "Estado 1", "12345678")),
-            new Usuario(2, "Jane Doe", "jane.d@test.com", "12345678", new Domain.ValueObjects.CPF("12345678901"), new Domain.ValueObjects.Endereco("Rua 2", "Casa 2", "Bairro 2", "Cidade 2", "Estado 2", "12345678")),
-        };
-        
-        public IList<Usuario> GetUsers()
-        {
-            return _users.ToList();
+            _context = context;
         }
-
+        
+        public async Task<List<Usuario>> GetUsersAsync()
+        {
+            return await _context.Usuarios.ToListAsync();
+        }
     }
 }

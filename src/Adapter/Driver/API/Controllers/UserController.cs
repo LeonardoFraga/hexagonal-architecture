@@ -1,10 +1,11 @@
+using Application.DTOs;
 using Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
     private readonly IUserUseCase _userUseCase;
@@ -16,10 +17,10 @@ public class UserController : ControllerBase
         _userUseCase = userUseCase;
     }
 
-
     [HttpGet]
-    public IActionResult Get()
+    public async Task<ActionResult<List<UserDto>>> Get()
     {
-        return Ok(_userUseCase.GetUsers());
+        var usuarios = await _userUseCase.GetUsers();
+        return Ok(usuarios);
     }
 }

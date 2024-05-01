@@ -5,14 +5,14 @@ namespace Domain.Entities
 {
     public class Usuario : IAggregateRoot
     {
-        public Usuario(int Id, string Nome, string Email, string Senha, CPF cpf, Endereco endereco)
+        public Usuario(int Id, string Nome, string Email, string Senha)
         {
             this.Id = Id;
             this.Nome = Nome;
             this.Email = Email;
             this.Senha = Senha;
-            this.CPF = cpf;
-            this.Endereco = endereco;
+            // this.CPF = cpf;
+            // this.Endereco = endereco;
 
             ValidateEntity();
         }
@@ -21,8 +21,8 @@ namespace Domain.Entities
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
-        public CPF CPF { get; private set; }
-        public Endereco Endereco { get; private set; }
+        // public CPF CPF { get; private set; }
+        // public Endereco Endereco { get; private set; }
 
         public void ValidateEntity()
         {
