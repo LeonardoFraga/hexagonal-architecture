@@ -3,8 +3,8 @@ using Domain.Entities;
 
 namespace Application.UseCases
 {
-    public interface IUserUseCase
+    public interface IUsuarioUseCase
     {
-        Task<List<UserDto>> GetUsers();
+        Task<List<UsuarioDto>> BuscarUsuariosAsync();
     }
 }

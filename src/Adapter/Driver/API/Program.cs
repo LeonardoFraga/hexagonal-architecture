@@ -25,8 +25,8 @@ if (!string.IsNullOrEmpty(connectionString))
         options.UseNpgsql(connectionString));
 }
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserUseCase, UserUseCase>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioUseCase, UsuarioUseCase>();
 
 builder.Services.AddHealthChecksUI(opt =>
 {

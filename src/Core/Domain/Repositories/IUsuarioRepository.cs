@@ -3,9 +3,9 @@ using Domain.Entities;
 namespace Domain.Repositories
 {
     // TODO: Mudar o nome da interface para portugues
-    public interface IUserRepository
+    public interface IUsuarioRepository
     {
         // TODO: Mudar o nome do metodo para portugues
-         Task<List<Usuario>> GetUsersAsync();
+         Task<List<Usuario>> BuscarUsuariosAsync();
     }
 }

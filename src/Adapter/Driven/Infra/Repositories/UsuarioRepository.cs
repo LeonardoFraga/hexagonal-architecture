@@ -5,16 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly AppDbContext _context;
 
-        public UserRepository(AppDbContext context)
+        public UsuarioRepository(AppDbContext context)
         {
             _context = context;
         }
         
-        public async Task<List<Usuario>> GetUsersAsync()
+        public async Task<List<Usuario>> BuscarUsuariosAsync()
         {
             return await _context.Usuarios.ToListAsync();
         }

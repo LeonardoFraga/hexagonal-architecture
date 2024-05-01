@@ -8,7 +8,7 @@ namespace Application.Mappers
     {
         public UsuarioProfile()
         {
-            CreateMap<Usuario, UserDto>().ReverseMap();
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
         }
     }
 }
