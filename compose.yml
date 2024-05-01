@@ -6,7 +6,7 @@ services:
   api:
     image: docker.io/library/appdemo
     depends_on:
-     - "hexagonal_db"
+     - "hexagonal-db"
     container_name: hexagonal-api
     ports:
       - "8000:8080"
@@ -15,14 +15,13 @@ services:
       dockerfile: Dockerfile
     environment:
       # TODO: Remove hard coded connection string
-      - ConnectionStrings__DefaultConnection=User ID =postgres;Password=1234;Server=hexagonal_db;Port=5432;Database=HexagonalDb; Integrated Security=true;Pooling=true;
       - ASPNETCORE_URLS=http://*:8080
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - dev
-  hexagonal_db:
+  hexagonal-db:
     image: postgres:latest
-    container_name: hexagonal_db
+    container_name: hexagonal-db
     environment:
         # TODO: Remove hard coded password
       - POSTGRES_USER=postgres

@@ -33,7 +33,7 @@ builder.Services.AddHealthChecksUI(opt =>
     opt.SetEvaluationTimeInSeconds(15);
     opt.MaximumHistoryEntriesPerEndpoint(60);
     opt.SetApiMaxActiveRequests(1);
-    opt.AddHealthCheckEndpoint("API", "http://localhost:8000/health"); // TODO: Remove hard coded url
+    opt.AddHealthCheckEndpoint("API", "http://localhost:8080/health"); // TODO: Remove hard coded url
 }).AddInMemoryStorage();
 
 var app = builder.Build();
